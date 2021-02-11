@@ -1,9 +1,29 @@
-$foo: 100px;
+// vars
+$primary-color: #45e7fc;
+$custom-white: #d4d4d4;
+// reset
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  background-color: azure;
+}
 
-.center {
-  width: $foo;
-  height: 100px;
-  background-color: gray;
-  border: 1px solid red;  
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-color;
 
+  .chart-container {
+    width: 700px / 768px * 100%;
+    background-color: $custom-white;
+    height: 900 / 1024 * 100%;
+  }
+}
+
+g {
+  background-color: green;
 }

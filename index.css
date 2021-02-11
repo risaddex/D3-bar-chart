@@ -1,8 +1,26 @@
-.center {
-  width: 100px;
-  height: 100px;
-  background-color: gray;
-  border: 1px solid red;
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100%;
+  background-color: azure;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #45e7fc;
+}
+.container .chart-container {
+  width: 91.1458333333%;
+  background-color: #d4d4d4;
+  height: 87.890625%;
+}
+
+g {
+  background-color: green;
 }
 
 /*# sourceMappingURL=index.css.map */
