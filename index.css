@@ -19,8 +19,14 @@ html, body {
   height: 87.890625%;
 }
 
-g {
+svg {
   background-color: green;
+}
+svg rect {
+  fill: #45e7fc;
+}
+svg text {
+  fill: black;
 }
 
 /*# sourceMappingURL=index.css.map */
