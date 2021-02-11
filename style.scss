@@ -1,0 +1,9 @@
+$foo: 100px;
+
+.center {
+  width: $foo;
+  height: 100px;
+  background-color: gray;
+  border: 1px solid red;  
+
+}
