@@ -1,8 +1,8 @@
 //! CONSTS
-const width = 800
-const height = 400
-const barHeight = height / 150;
+const width = 920 ;
+const height = 540;
 const padding = width / 20;
+const barHeight = height / 100;
 
 //! DATA
 const json = {
@@ -1129,58 +1129,81 @@ const json = {
     ]
   ]
 }
+// ? "1947-01-01"
+const formatTime = (date) => date.slice(0, 4)
 
-const dataset = [1, 2, 3, 4, 5, 6, 50, 60] //! fake data
-// append SVG
+const dataset = json.data.map((item, i) => {
+  return [formatTime(item[0]), item[1]]
+})
+
+
+
+//! SVG
 const svg = 
   d3.select('.chart-container')
     .append('svg')
-    .attr('width', width)
-    .attr('height', height);
+    .attr('width', width  )
+    .attr('height', height)
 //! X
 const xScale =
   d3.scaleLinear()
-    .domain([0, d3.max(dataset)])
+    .domain([d3.min(dataset, (d) => d[0]), d3.max(dataset, (d) => d[0])])
+    //.domain([d3.min(dataset, (d) => d[0]), d3.max(dataset, (d) => d[0])])
     .range([padding, width - padding]);
 //! Y
 const yScale =
   d3.scaleLinear()
-    .domain([0, d3.max(dataset)])
+    .domain([0, d3.max(dataset, (d) => d[1])])
     .range([height - padding, padding]);
 
 // !AXIS
 const xAxis = 
   d3.axisBottom()
-    .scale(xScale);
+    .scale(xScale)
     
 const yAxis = 
   d3.axisLeft()
     .scale(yScale);
 
-svg
+//! TEXT
+  // svg
+  //   .selectAll('g')
+  //   .data(dataset)
+  //   .enter()
+  //   .append('g')
+  //   .attr('transform', `translate(0, ${height - padding})`)
+  //   .append('text')
+  //   .text((_d, i) => i)
+  //   .attr('x', (_d, i) => xScale(i))
+  //   .attr('y', padding /2)
+
+const mainXaxis = svg
   .append('g')
-  .attr("transform", `translate(0, ${height - padding})`)
+  .attr("transform", `translate(0,${height - padding})`)
   .attr('id', 'x-axis')
   .call(xAxis);
 
-svg
+const mainYaxis = svg
   .append('g')
   .attr("transform", `translate(${padding}, 0)`)
   .attr('id', 'y-axis')
   .call(yAxis);
 
-//! RECTS
 
-const bar = svg
+//! BARS
+
+const bars = mainYaxis
   .selectAll('rect')
   .data(dataset)
   .enter()
   .append('rect')
-  .attr('x', (data, i) => i * 30)
-  .attr('y', 0 )
-  .attr('width', 25)
-  .attr('height', (data, i) => data * barHeight)
-
-
-
-
+  .attr('class', 'bar')
+  // .attr('x', (d, i) => xScale(i) - padding)
+  .attr('x', (d, i) => xScale(d[0]) - padding)
+  .attr('y',(d,i) => yScale(d[1]) - padding)
+  .attr("transform", `translate(0, ${padding})`)
+  .attr('width', width / 270)
+  .attr('height', (d, i) => height -  yScale(d[1]) - padding)
+  //todo => FCC Requests
+  .attr('data-date', (d, i) => i[0])
+  .attr('data-gdp', (d, i) => i[1])
