@@ -1129,13 +1129,13 @@ const json = {
     ]
   ]
 }
-// ? "1947-01-01"
-const formatTime = (date) => date.slice(0, 4)
+// new Date(moment.tz(item[0], "America/New_York"))
 
 const dataset = json.data.map((item, i) => {
-  return [formatTime(item[0]), item[1]]
+  return [new Date(moment.tz(item[0], "America/New_York")), item[1]]
 })
 
+const dateset = json.data.map((item, i) => [item[0], item[1]])
 
 
 //! SVG
@@ -1146,9 +1146,9 @@ const svg =
     .attr('height', height)
 //! X
 const xScale =
-  d3.scaleLinear()
+  d3.scaleTime()
     .domain([d3.min(dataset, (d) => d[0]), d3.max(dataset, (d) => d[0])])
-    //.domain([d3.min(dataset, (d) => d[0]), d3.max(dataset, (d) => d[0])])
+    // .domain([0, dataset.length])
     .range([padding, width - padding]);
 //! Y
 const yScale =
@@ -1159,7 +1159,8 @@ const yScale =
 // !AXIS
 const xAxis = 
   d3.axisBottom()
-    .scale(xScale)
+  .scale(xScale)
+  .tickFormat(d3.timeFormat("%Y"))
     
 const yAxis = 
   d3.axisLeft()
@@ -1199,11 +1200,11 @@ const bars = mainYaxis
   .append('rect')
   .attr('class', 'bar')
   // .attr('x', (d, i) => xScale(i) - padding)
-  .attr('x', (d, i) => xScale(d[0]) - padding)
+  .attr('x', (d, i) => xScale(d[0]) - padding) 
   .attr('y',(d,i) => yScale(d[1]) - padding)
   .attr("transform", `translate(0, ${padding})`)
-  .attr('width', width / 270)
+  .attr('width', (width - padding) / 280 )
   .attr('height', (d, i) => height -  yScale(d[1]) - padding)
   //todo => FCC Requests
-  .attr('data-date', (d, i) => i[0])
-  .attr('data-gdp', (d, i) => i[1])
+  .attr('data-date', (d, i) => dateset[i][0]) //? to handling with timezone conflicts without external libs
+  .attr('data-gdp', (d, i) => d[1])
