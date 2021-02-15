@@ -11,7 +11,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #45e7fc;
+  background-color: #ffffff00;
 }
 .container .chart-container {
   width: 91.1458333333%;
@@ -20,13 +20,28 @@ html, body {
 }
 
 svg {
-  background-color: green;
+  background-color: #ffffff00;
 }
 svg rect {
-  fill: #45e7fc;
+  fill: #45e7fcd8;
 }
-svg text {
-  fill: black;
+svg .bar:hover {
+  fill: brown;
+}
+
+#tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  padding: 5px;
+  background: #ffffff00;
+  box-shadow: 1px 1px 10px;
+  border-radius: 50px;
+  pointer-events: none;
 }
 
 /*# sourceMappingURL=index.css.map */

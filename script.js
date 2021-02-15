@@ -3,6 +3,7 @@ const width = 920 ;
 const height = 540;
 const padding = width / 20;
 const barHeight = height / 100;
+const barWidth = (width - padding) / 280;
 
 //! DATA
 const json = {
@@ -1135,7 +1136,8 @@ const dataset = json.data.map((item, i) => {
   return [new Date(moment.tz(item[0], "America/New_York")), item[1]]
 })
 
-const dateset = json.data.map((item, i) => [item[0], item[1]])
+const sliceYear = (date) => moment(date).format('Y-MM-DD')
+// const dateset = json.data.map((item, i) => [item[0], item[1]])
 
 
 //! SVG
@@ -1166,17 +1168,11 @@ const yAxis =
   d3.axisLeft()
     .scale(yScale);
 
-//! TEXT
-  // svg
-  //   .selectAll('g')
-  //   .data(dataset)
-  //   .enter()
-  //   .append('g')
-  //   .attr('transform', `translate(0, ${height - padding})`)
-  //   .append('text')
-  //   .text((_d, i) => i)
-  //   .attr('x', (_d, i) => xScale(i))
-  //   .attr('y', padding /2)
+//! TOOLTIP
+const tooltip = d3.select('.chart-container')
+  .append('div')
+  .attr('id', 'tooltip')
+  .style('opacity', 0)
 
 const mainXaxis = svg
   .append('g')
@@ -1199,12 +1195,35 @@ const bars = mainYaxis
   .enter()
   .append('rect')
   .attr('class', 'bar')
-  // .attr('x', (d, i) => xScale(i) - padding)
   .attr('x', (d, i) => xScale(d[0]) - padding) 
   .attr('y',(d,i) => yScale(d[1]) - padding)
   .attr("transform", `translate(0, ${padding})`)
-  .attr('width', (width - padding) / 280 )
+  .attr('width', barWidth)
   .attr('height', (d, i) => height -  yScale(d[1]) - padding)
-  //todo => FCC Requests
-  .attr('data-date', (d, i) => dateset[i][0]) //? to handling with timezone conflicts without external libs
+  .attr('data-date', (d, i) => sliceYear(d[0])) //? to handling with timezone conflicts without external libs
   .attr('data-gdp', (d, i) => d[1])
+  .on('mouseover', (event, d, i) => {
+    console.log(i)
+    tooltip
+      .transition()
+      .duration(200)
+      .style('opacity', .9)
+      .attr('data-date', sliceYear(d[0]))
+      tooltip
+        .html(`
+          ${sliceYear(d[0])}
+          <br />
+          $${d[1]} billions
+        `)
+      .style('left', `${event.clientX -  padding}px`)
+      .style('top', `${event.clientY - padding - 30}px`)
+  })
+  .on('mouseout', () => {
+    tooltip
+      .transition()
+      .duration(200)
+      .style('opacity', 0)
+  })
+  
+  
+

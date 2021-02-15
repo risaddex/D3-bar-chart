@@ -1,6 +1,7 @@
 // vars
-$primary-color: #45e7fc;
+$primary-color: #ffffff00;
 $custom-white: #d4d4d4;
+$baby-blue: #45e7fcd8;
 // reset
 html, body {
   margin: 0;
@@ -25,14 +26,28 @@ html, body {
 }
 
 svg {
-  background-color: green;
+  background-color: $primary-color;
   rect {
-    fill: $primary-color;
+    fill: $baby-blue;
     
   }
-  text {
-    fill: black;
+  .bar:hover {
+    fill: brown;
   }
 
-  
+}
+
+#tooltip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  padding: 5px;
+  background: $primary-color;
+  box-shadow: 1px 1px 10px;
+  border-radius: 50px;
+  pointer-events: none;
 }
