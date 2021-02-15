@@ -12,11 +12,12 @@ const svg =
     .attr('width', width)
     .attr('height', height)
 
+let dataset;
 
 d3.json('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json',
   (e, json) => {
 
-  const dataset = json.data.map((item) => {
+    dataset = json.data.map((item) => {
     return [new Date(moment.tz(item[0], "America/New_York")), item[1]]
   })
 
@@ -85,15 +86,15 @@ d3.json('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/mas
         .transition()
         .duration(200)
         .style('opacity', .9)
-        .attr('data-date', sliceYear(d[0]))
+        .attr('data-date', sliceYear(event[0]))
       tooltip
         .html(`
-          ${sliceYear(d[0])}
+          ${sliceYear(event[0])}
           <br />
-          $${d[1]} billions
+          $${event[1]} billions
         `)
-        .style('left', `${event.clientX - padding}px`)
-        .style('top', `${event.clientY - padding - 30}px`)
+        .style('left', `${event.screenX - padding}px`)
+        .style('top', `${event.screenY - padding - 30}px`)
     })
     .on('mouseout', () => {
       tooltip
