@@ -8,20 +8,27 @@ html, body {
   padding: 0;
   box-sizing: border-box;
   height: 100%;
-  background-color: azure;
+  overflow: hidden;
 }
 
+h2 {
+  display: block;
+  position: absolute;
+  top: 15%;
+  margin: 0 auto;
+}
 .container {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $primary-color;
+  background: linear-gradient(50deg, #b0fafab2, #ffffff);
 
   .chart-container {
-    width: 700px / 768px * 100%;
-    background-color: $custom-white;
-    height: 900px / 1024px * 100%;
+    padding: 10%;
+    background: $primary-color;
+    
+    
   }
 }
 
@@ -32,7 +39,7 @@ svg {
     
   }
   .bar:hover {
-    fill: brown;
+    fill: $primary-color;
   }
 
 }

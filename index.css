@@ -3,7 +3,14 @@ html, body {
   padding: 0;
   box-sizing: border-box;
   height: 100%;
-  background-color: azure;
+  overflow: hidden;
+}
+
+h2 {
+  display: block;
+  position: absolute;
+  top: 15%;
+  margin: 0 auto;
 }
 
 .container {
@@ -11,12 +18,11 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff00;
+  background: linear-gradient(50deg, #b0fafab2, #ffffff);
 }
 .container .chart-container {
-  width: 91.1458333333%;
-  background-color: #d4d4d4;
-  height: 87.890625%;
+  padding: 10%;
+  background: #ffffff00;
 }
 
 svg {
@@ -26,7 +32,7 @@ svg rect {
   fill: #45e7fcd8;
 }
 svg .bar:hover {
-  fill: brown;
+  fill: #ffffff00;
 }
 
 #tooltip {

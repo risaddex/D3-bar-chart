@@ -1,7 +1,7 @@
 //! CONSTS
-const width = 920 ;
-const height = 540;
-const padding = width / 20;
+const width = document.documentElement.clientWidth * 0.9;
+const height = document.documentElement.clientHeight * 0.666;
+const padding = 40;
 const barHeight = height / 100;
 const barWidth = (width - padding) / 280;
 
@@ -1202,8 +1202,7 @@ const bars = mainYaxis
   .attr('height', (d, i) => height -  yScale(d[1]) - padding)
   .attr('data-date', (d, i) => sliceYear(d[0])) //? to handling with timezone conflicts without external libs
   .attr('data-gdp', (d, i) => d[1])
-  .on('mouseover', (event, d, i) => {
-    console.log(i)
+  .on('mouseover', (event, d) => {
     tooltip
       .transition()
       .duration(200)
